@@ -36,16 +36,26 @@ Where ***patch*** will increase the ***patch*** version
 
 ```
 
-       ## Version Number increase
-      - name: BMJ Version number increment
-        uses: BMJ-Ltd/xxxxx@1.0.40
+name: Tester-Run
+on: [push, pull_request]
+jobs:
+  build:
+    name: Get Last Version Number
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: BMJ Github Action to retrieve the latest version number from ECR
+        uses: BMJ-Ltd/bmj-ecr-version-increment@1.0.0
         id: version
         with:
-          ecr_name: ${{ github.event.repository.name }}
+          ecr_name: "xxx-xxx-xxx"
           version_type: "patch"
       - name: Get the version
         run: |
           echo '${{ steps.version.outputs.newVersion }}'
+
+
 
 ```
 
